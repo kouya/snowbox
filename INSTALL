@@ -1,0 +1,62 @@
+Source download:
+
+To compile snowbox yourself you need a Go compiler. It has been tested
+with the official release but it should also work with the gcc go
+compiler.
+
+The reference implementation is available at: http://golang.org/doc/install
+It is also included in Debian Wheezy. If you can type "go" on the command
+line and it produces something other than "command not found" you're good
+to go.
+
+To install:
+
+$ make
+$ sudo make install
+
+This will install the binary in /usr/local/sbin, the config in /etc/snowbox
+and a simple init script in /etc/init.d.
+
+If you're on Debian you can use the provided init script init.d/debian for
+a more "debianized" version. To add snowbox to the startup on Debian use
+
+$ update-rc.d snowbox defaults.
+
+After that you should edit /etc/snowbox/config to suit your needs and add
+the users to /etc/snowbox/user.auth. The configuration is pretty much self
+explanatory. See the manpage for more details about what can be done.
+
+
+Binary distribution:
+
+Use
+
+$ sudo make install
+
+These packages are the same as the source version with snowbox precompiled.
+You can recompile them yourself with 'make'.
+
+
+SSL:
+
+You can create a self-signed certificate to use with snowbox with:
+
+$ make ssl-cert
+
+This will create a certificate valid for one year with the common name
+'localhost'. You need OpenSSL installed. The command line for creating
+certificates:
+
+openssl req -new -x509 -nodes -out snowbox.cert -keyout snowbox.key \
+-days 365 -subj '/CN=localhost'
+
+Change 'CN=localhost' accordingly.
+
+
+Uninstalling:
+
+$ make uninstall
+
+This will uninstall the binary, init script and manpage. To remove the config
+
+$ make uninstall-conf

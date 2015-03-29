@@ -1,0 +1,47 @@
+#! /bin/sh
+# Simple init script for snowbox
+# Author: Oliver Feiler <kiza@kcore.de>
+
+BIN=/usr/local/sbin/snowbox
+
+start()
+{
+	$BIN &
+}
+
+stop()
+{
+	skill snowbox
+}
+
+status()
+{
+	PID=`pgrep -f $BIN`
+	if [ $? -eq "0" ]; then
+		echo "snowbox is running (pid "$PID")."
+	else
+		echo "snowbox is not running."
+	fi
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status
+	;;
+  restart|force-reload)
+	stop
+	start
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
+	exit 3
+	;;
+esac
+
+:

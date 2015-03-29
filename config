@@ -1,0 +1,19 @@
+# This is snowbox' default config. The settings below are the default
+# configuration. If you leave this file empty, internal defaults 
+# will be used, which are repeated below.
+# To use IPv6 addresses use: [fd8d:dead:beef...]:port
+# To listen on all interfaces use: 0.0.0.0:port or [::]:port
+#
+# This file must exist even if it is empty!
+
+listen: 127.0.0.1:110
+use_ssl: no
+ssl_only: no
+listen_ssl: 127.0.0.1:995
+ssl_key: /etc/snowbox/snowbox.key
+ssl_cert: /etc/snowbox/snowbox.cert
+authfile: /etc/snowbox/user.auth
+maildir: /var/mail
+maildir_gid: mail
+loglevel: 1
+logfacility: syslog

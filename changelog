@@ -1,0 +1,11 @@
+2.0.1
+- Support passwords with spaces. The previous argument parser would not
+  allow this.
+- Loglevel for failed login is now 1 (default loglevel).
+- Crash in the TOP command when requesting a message number higher than
+  the max number of messages. (DoS)
+- Use fcntl() in addition to flock() for MTAs that do not support the later.
+- Use go's ConstantTimeCompare() in the login code.
+
+2.0
+- First release of snowbox 2

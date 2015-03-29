@@ -1,0 +1,5 @@
+# This is the user configuration. snowbox does not automatically pick up
+# any system user.
+# Format is self-explanatory. User names obviously cannot start with '#'.
+#
+# username: password

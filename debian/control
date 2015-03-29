@@ -1,0 +1,16 @@
+Source: snowbox
+Maintainer: Oliver Feiler <kiza@kcore.de>
+Section: mail
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 8)
+Homepage: https://kiza.eu/software/snowbox/
+
+Package: snowbox
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: pop3 server written in Go
+ Simple, secure and easy to setup POP3 server written in Go.
+ Snowbox is setup in a few minutes and has only two config files
+ from which you need to edit just the one containing user
+ authentication information.

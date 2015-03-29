@@ -1,0 +1,19 @@
+snowbox (2.0.1-1) unstable; urgency=low
+
+  * New upstream release
+    - Support passwords with spaces. The previous argument parser would
+    not allow this.
+    - Loglevel for failed login is now 1 (default loglevel).
+    - Crash in the TOP command when requesting a message number higher
+    than the max number of messages. (DoS)
+    - Use fcntl() in addition to flock() for MTAs that do not support
+    the later.
+    - Use go's ConstantTimeCompare() in the login code.
+
+ -- Oliver Feiler <kiza@kcore.de>  Sun, 19 May 2013 15:37:03 +0200
+
+snowbox (2.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Oliver Feiler <kiza@kcore.de>  Fri, 05 Apr 2013 18:29:03 +0200

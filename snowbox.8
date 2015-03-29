@@ -1,0 +1,154 @@
+.\" Snowbox manpage
+.\"
+.\" This manpage is copyrighted by Oliver Feiler 2013
+.\"                                <kiza@kcore.de>
+.\"
+.TH SNOWBOX 8 "6 May 2013" "Snowbox 2.0.1"
+
+.SH NAME
+snowbox \- a POP3 server
+
+.SH SYNPOSIS
+.B snowbox [--configfile]
+
+.SH DESCRIPTION
+Snowbox is a POP3 server written in Go. It supports SSL and IPv6.
+.P
+.B Configuration
+.P
+The default configuration file is /etc/snowbox/config. This file must exist, even if it is empty. In this case internal (sane) defaults are used. The default config creates a listener on localhost pop3/110.
+.P
+.B Server config
+.br
+(/etc/snowbox/config)
+.P
+.B listen (default=127.0.0.1:110)
+.br
+Interface and port to listen on. Use 0.0.0.0:110 to bind to all available interfaces.
+.P
+.B use_ssl (default=no)
+.br
+Activates pop3s. Needs an SSL certificate. See
+.B ssl_key
+and
+.B ssl_cert
+below.
+.P
+.B ssl_only (default=no)
+.br
+If set to 'yes', only pop3s will be activated.
+.P
+.B listen_ssl (default=127.0.0.1:995)
+.br
+Interface and port to use for pop3s. Use 0.0.0.0:995 to bind to all available interfaces.
+.P
+.B ssl_key (default=/etc/snowbox/snowbox.key)
+.br
+SSL key file in PEM format.
+.P
+.B ssl_cert (default=/etc/snowbox/snowbox.cert)
+.br
+SSL certificate file in PEM format.
+.P
+.B authfile (default=/etc/snowbox/user.auth)
+.br
+This is the location of the user authentication file. See the section below for the format description.
+.P
+.B maildir (default=/var/mail)
+.br
+This is the location of the system's mail spool directory. Usually this is
+/var/mail where your MTA dumps mails.
+.P
+.B maildir_gid (default=mail)
+.br
+This is the group ID of the mail spool directory. This is unused in the Go version of snowbox.
+.P
+.B loglevel (default=1)
+.br
+For normal operation leave loglevel at default setting (1). Possible values
+are:
+.br
+0:    disable logging
+.br
+1:    default
+.br
+2:    unusual events usually only interesting for debugging
+.br
+3:    logs every connection and sent command. Aka "I want more noise in my syslog" mode.
+.P
+.B logfacility (default=syslog)
+.br
+Valid options are syslog or stdout (which is mainly useful for debugging and testing).
+.P
+.B maildir (default=/var/mail)
+.br
+The directory of the maildrop. Usually /var/mail.
+.P
+.B maildir_gid:
+.br
+This option is unused in snowbox 2. The process will run as root all the time since at the time of writing there was no way to change the user ID of a running Go routine.
+.P
+.B IPv6
+.P
+You can use IPv6 addresses for the listen and listen_ssl config options. The format is [IP]:port. To listen on all interfaces use [::]:port. Note that 0.0.0.0:port also binds to IPv6 when available.
+.P
+.B User config
+.br
+(/etc/snowbox/user.auth)
+.P
+This is the user authentication file. It should be owned by root and have
+strict file permissions. The default format is:
+.P
+username:<blank space> password
+.P
+The blank space can be whitespaces or tabs and as much you need for funny
+looking ASCII art config files. (It is matched with regular expression \s*)
+.P
+.B Examples:
+.P
+kiza: foobar
+.br
+bar:  foo
+.br
+foo:     bar
+.P
+.B Advanced configuration options
+.P
+The custom maildrop configuration from version 1.x is not supported yet.
+.P
+.B SSL
+.P
+You can create a self-signed certificate with the following command line:
+.br
+openssl req -new -x509 -nodes -out snowbox.cert -keyout snowbox.key -days 365 -subj '/CN=localhost'
+.P
+where 'CN=localhost' is the hostname you want to use.
+.P
+Snowbox can use PEM encoded certificates and keys.
+.P
+.B Launching snowbox
+.P
+An init.d script is provided with the package. There is a very simple one that is installed by default. If you are on Debian you can use the debianized version in init.d/debian. The deb package installs that one by default.
+.P
+That's it. You should be able to use the server now. If you encounter a bug or have a problem with the configuration you can contact me at kiza@kcore.de.
+
+.SH OPTIONS
+.B --configfile,
+Specify a different config file to load.
+
+.SH FILES
+/usr/local/sbin/snowbox
+.br
+/etc/snowbox/config
+.br
+/etc/snowbox/user.auth
+.br
+/etc/init.d/snowbox
+
+.SH AUTHOR
+Oliver Feiler <kiza@kcore.de>
+.br
+Additional code and ideas: Rene Puls <rpuls@kcore.de>
+
+.SH LICENSE
+Snowbox is released under the GNU General Public License version 3.
