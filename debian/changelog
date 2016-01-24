@@ -1,3 +1,9 @@
+snowbox (2.0.1-2) unstable; urgency=high
+
+  * Rebuild with go 1.5.3 (CVE-2015-8618)
+
+ -- Oliver Feiler <kiza@kcore.de>  Sun, 24 Jan 2016 12:00:00 +0200
+
 snowbox (2.0.1-1) unstable; urgency=low
 
   * New upstream release
