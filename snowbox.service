@@ -1,0 +1,9 @@
+[Unit]
+Description=Snowbox pop3 server
+Documentation=man:snowbox(8)
+
+[Service]
+ExecStart=/usr/local/sbin/snowbox
+
+[Install]
+WantedBy=multi-user.target
