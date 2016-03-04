@@ -1,3 +1,11 @@
+snowbox (2.0.2-1) unstable; urgency=medium
+
+  * Fix maildrop writer/parser
+  * Added systemd unit file
+  * Added apparmor profile
+
+ -- Oliver Feiler <kiza@kcore.de>  Fri, 04 Mar 2016 17:40:18 +0200
+
 snowbox (2.0.1-2) unstable; urgency=high
 
   * Rebuild with go 1.5.3 (CVE-2015-8618)

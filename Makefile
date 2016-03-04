@@ -1,7 +1,7 @@
 PREFIX=/usr/local
-VERSION=2.0.1
+VERSION=2.0.2
 
-DISTFILES=AUTHOR COPYING INSTALL README Makefile config user.auth main.go snowbox.8 debian init.d changelog
+DISTFILES=AUTHOR COPYING INSTALL README Makefile config user.auth main.go snowbox.8 debian init.d changelog snowbox.service usr.sbin.snowbox
 
 all: snowbox
 
@@ -14,7 +14,7 @@ foxbox:
 clean:
 	rm -f snowbox foxbox
 
-install: install-bin install-conf install-man
+install: install-bin install-conf install-doc
 	@echo "Done."
 
 install-bin: snowbox
@@ -34,22 +34,28 @@ install-conf:
 		echo "Installing" $(DESTDIR)/etc/init.d/snowbox; \
 		install -D -m 0755 init.d/snowbox $(DESTDIR)/etc/init.d/snowbox; \
 	fi
+	@if [ ! -f "$(DESTDIR)/lib/systemd/system/snowbox.service" ]; then \
+		echo "Installing "$(DESTDIR)/lib/systemd/system/snowbox.service; \
+		install -D -m 0644 snowbox.service $(DESTDIR)/lib/systemd/system/snowbox.service; \
+	fi
 
-install-man:
+install-doc:
 	@install -D -m 0644 snowbox.8 $(DESTDIR)$(PREFIX)/man/man8/snowbox.8
 
-uninstall: uninstall-bin uninstall-man
+uninstall: uninstall-bin uninstall-doc
 	@echo "Use make uninstall-conf to remove the configuration in /etc"
 
 uninstall-bin:
 	rm -f $(DESTDIR)$(PREFIX)/sbin/snowbox
 	rm -f $(DESTDIR)/etc/init.d/snowbox
 
-uninstall-man:
+uninstall-doc:
 	rm -f $(DESTDIR)$(PREFIX)/man/man8/snowbox.8
 
 uninstall-conf:
 	rm -rf /etc/snowbox
+	rm -f /etc/init.d/snowbox
+	rm -f /lib/systemd/system/snowbox.service
 
 dist:
 	mkdir snowbox-$(VERSION)

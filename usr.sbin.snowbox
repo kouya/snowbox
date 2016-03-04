@@ -1,0 +1,23 @@
+# Last Modified: Sat May 11 11:25:32 2013
+#include <tunables/global>
+
+/usr/sbin/snowbox {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/ssl_keys>
+
+
+  capability dac_override,
+  capability net_admin,
+  capability net_bind_service,
+
+
+
+  /etc/snowbox/** r,
+  /proc/sys/kernel/hostname r,
+  /proc/sys/net/core/somaxconn r,
+  /usr/sbin/snowbox mr,
+  /var/mail/* rwlk,
+  /var/spool/mail/* rwlk,
+
+}

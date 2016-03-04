@@ -1,4 +1,4 @@
-/* snowbox 2 (2.0.1) - a POP3 server written in Go
+/* snowbox 2 (2.0.2) - a POP3 server written in Go
  *
  * Copyright 2013 Oliver Feiler <kiza@kcore.de>
  * https://snowbox.kcore.de/
@@ -33,7 +33,7 @@ import (
 	"unsafe"
 )
 
-var version = "2.0.1"
+var version = "2.0.2"
 
 /* Command line options parser. */
 var configfile = flag.String("configfile", "/etc/snowbox/config", "Config file to load.")
@@ -581,6 +581,17 @@ func popCmdQuit(c net.Conn, connectionState string, user string, messages []Mess
 							return
 						}
 					}
+
+					// Close mail with blank line
+					_, err := file.WriteString("\n")
+					if err != nil {
+						if loglevel >= 1 {
+							log_str := fmt.Sprintf("Panic! Writing maildrop failed: %s", err)
+							logEvent(c, log_str, 1)
+						}
+						return
+					}
+
 					n++
 				}
 			}

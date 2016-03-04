@@ -1,3 +1,11 @@
+2.0.2
+- Fix maildrop writing bug. snowbox would not insert a blank line after
+  each mail, making the maildrop unparsable. This bug only occured if
+  a partial maildrop was written and never if all mails were deleted
+  immediately by the client.
+- Added systemd unit file
+- Added apparmor profile (not installed by default)
+
 2.0.1
 - Support passwords with spaces. The previous argument parser would not
   allow this.
