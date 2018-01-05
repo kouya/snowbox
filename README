@@ -1,7 +1,0 @@
-Snowbox is a POP3 server written in Go. 
-
-For installation instructions, please read the file INSTALL.
-For configuration and operation instructions, please see the manpage.
-
-Snowbox is released under the GNU General Public License version 3. See the
-file COPYING for details.
